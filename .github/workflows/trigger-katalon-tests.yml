@@ -1,0 +1,34 @@
+name: Trigger Katalon Tests
+
+on:
+  push:
+    branches: [ main, develop ]  # Trigger khi push lên các branch này
+    paths:
+      - 'src/**'                # Chỉ trigger khi thay đổi file trong src
+      - 'package.json'          # Hoặc khi package.json thay đổi
+
+jobs:
+  trigger-katalon:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      # Các bước build Node.js (nếu cần)
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - name: Install dependencies
+        run: npm install
+      
+      # Bước trigger Katalon tests
+      - name: Trigger Katalon Tests
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.TEST_REPO_ACCESS_TOKEN }}
+          repository: hoainam1308/katalon  # Chỉ cần tên repo, không cần URL đầy đủ
+          event-type: run_tests
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
