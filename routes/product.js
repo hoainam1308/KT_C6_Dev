@@ -11,7 +11,7 @@ router.get('/', async function(req, res, next) {
 // router.post('/', async function(req, res, next) {
 //     let newProduct = productSchema(req.body);
 //     await newProduct.save();
-//     res.send(newProduct);
+//     res.send(newProduct); test
 // });
 
 router.get('/:id', async function(req, res, next) {
