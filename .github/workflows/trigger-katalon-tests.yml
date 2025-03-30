@@ -3,9 +3,6 @@ name: Trigger Katalon Tests
 on:
   push:
     branches: [ main, develop ]  # Trigger khi push lên các branch này
-    paths:
-      - 'src/**'                # Chỉ trigger khi thay đổi file trong src
-      - 'package.json'          # Hoặc khi package.json thay đổi
 
 jobs:
   trigger-katalon:
